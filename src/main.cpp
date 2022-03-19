@@ -85,7 +85,7 @@ int main() {
 
     if (buff1 == "1") {
         std::cout << "Загрузка нейронной сети." << std::endl;
-        NeuralNetwork digits_recognizer = "../data/DigitsRecognizer.cfg";
+        NeuralNetwork digit_recognizer = "../data/DigitRecognizer.cfg";
         std::cout << "Загрузка данных для тестирования нейронной сети." << std::endl;
         buff2 = load_testing_data();
         data = std::get<0>(buff2);
@@ -93,14 +93,14 @@ int main() {
         std::cout << std::endl;
 
         std::cout << "Оценка качества нейронной сети." << std::endl;
-        for (int i = 0; i < data.size(); i = i + 1) if (NeuralNetwork::predict(digits_recognizer, data[i]) == answers[i]) correct = correct + 1;
+        for (int i = 0; i < data.size(); i = i + 1) if (NeuralNetwork::predict(digit_recognizer, data[i]) == answers[i]) correct = correct + 1;
         std::cout << std::endl;
 
         std::cout << "Результат: " << (float)correct / (float)data.size() * 100 << "% (" << correct << "/" << data.size() << ")." << std::endl;
     }
     else if (buff1 == "2") {
         std::cout << "Загрузка нейронной сети." << std::endl;
-        NeuralNetwork digits_recognizer = "../data/DigitsRecognizer.cfg";
+        NeuralNetwork digit_recognizer = "../data/DigitRecognizer.cfg";
         std::cout << std::endl;
 
         std::cout << "Существует некоторых требования к своим изображениям." << std::endl;
@@ -114,7 +114,7 @@ int main() {
         std::cout << std::endl;
 
         std::cout << "Выполняется загрузка изображения и расчет." << std::endl;
-        result = NeuralNetwork::predict(digits_recognizer, load_jpg(buff1));
+        result = NeuralNetwork::predict(digit_recognizer, load_jpg(buff1));
         std::cout << std::endl;
 
         std::cout << "Результат: Вероятно " << result << "." << std::endl;
@@ -135,8 +135,8 @@ int main() {
         std::cout << std::endl;
 
         std::cout << "Инициализация и обучение нейронной сети." << std::endl;
-        NeuralNetwork digits_recognizer = {l1_size, l2_size, l3_size, l4_size};
-        digits_recognizer = NeuralNetwork::train(digits_recognizer, data, answers, eta, necessary_MSE, true);
+        NeuralNetwork digit_recognizer = {l1_size, l2_size, l3_size, l4_size};
+        digit_recognizer = NeuralNetwork::train(digit_recognizer, data, answers, eta, necessary_MSE, true);
         std::cout << std::endl;
 
         std::cout << "Загрузка данных для тестирования нейронной сети." << std::endl;
@@ -146,7 +146,7 @@ int main() {
         std::cout << std::endl;
 
         std::cout << "Оценка качества нейронной сети." << std::endl;
-        for (int i = 0; i < data.size(); i = i + 1) if (NeuralNetwork::predict(digits_recognizer, data[i]) == answers[i]) correct = correct + 1;
+        for (int i = 0; i < data.size(); i = i + 1) if (NeuralNetwork::predict(digit_recognizer, data[i]) == answers[i]) correct = correct + 1;
         std::cout << std::endl;
 
         std::cout << "Результат: " << (float)correct / (float)data.size() * 100 << "% (" << correct << "/" << data.size() << ")." << std::endl;
@@ -154,7 +154,7 @@ int main() {
 
         std::cout << "Вы хотите сохранить обученную нейронную сеть (1 - Да, 2 - Нет): ";
         std::getline(std::cin, buff1);
-        if (buff1 == "1") {NeuralNetwork::save(digits_recognizer, "../data/DigitsRecognizer.cfg"); std::cout << "Сохранено." << std::endl;}
+        if (buff1 == "1") {NeuralNetwork::save(digit_recognizer, "../data/DigitRecognizer.cfg"); std::cout << "Сохранено." << std::endl;}
         else if (buff1 == "2") std::cout << "Процесс завершен." << std::endl;
         else std::cout << "Неизвестное действие." << std::endl;
     }
