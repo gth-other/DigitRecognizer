@@ -38,14 +38,14 @@ NeuralNetwork NeuralNetwork::train(NeuralNetwork nn, std::vector<std::vector<flo
     std::vector<float> l3_input_signals, l3;
     std::vector<float> l4_input_signals, l4;
     std::vector<float> l4_errors, l3_errors, l2_errors;
-    float errors_sum = 0;
+    float errors_sum;
     float MSE;
     int buff;
     int answer;
     std::random_device random_device;
     std::mt19937 mersenne(random_device());
     for (int i = 0; true; i = i + 1) {
-        if (log) errors_sum = 0;
+        errors_sum = 0;
         for (int j = 0; j < data.size(); j = j + 1) {
             buff = (int)(mersenne() % answers.size());
             l1 = data[buff];
@@ -72,10 +72,10 @@ NeuralNetwork NeuralNetwork::train(NeuralNetwork nn, std::vector<std::vector<flo
             nn._w23 = NeuralNetwork::_calc_better_w(nn._w23, l3_errors, l2, eta);
             nn._w12 = NeuralNetwork::_calc_better_w(nn._w12, l2_errors, l1, eta);
 
-            if (log) for (int k = 0; k < l4.size(); k = k + 1) {
-                    if (answer == k) errors_sum = errors_sum + (float)std::pow((1 - l4[k]), 2);
-                    else errors_sum = errors_sum + (float)std::pow(l4[k], 2);
-                }
+            for (int k = 0; k < l4.size(); k = k + 1) {
+                if (answer == k) errors_sum = errors_sum + (float)std::pow((1 - l4[k]), 2);
+                else errors_sum = errors_sum + (float)std::pow(l4[k], 2);
+            }
         }
         MSE = errors_sum / (float)(data.size() * nn._l4_size);
         if (log) std::cout << "Epoch = " << i + 1 << ". Necessary MSE = " << necessary_MSE << ". MSE = " << MSE << "." << std::endl;
