@@ -10,7 +10,7 @@ std::array<int, 10> dir_size_in_data_images_training = {5923, 6742, 5958, 6131, 
 std::array<int, 10> dir_size_in_data_images_testing = {980, 1135, 1032, 1010, 982, 892, 958, 1028, 974, 1009};
 std::vector<float> load_jpg(const std::string& file_location) {
     Magick::Image image;
-    image.read( file_location);
+    image.read(file_location);
     image.type(Magick::TrueColorType);
     image.colorspaceType(Magick::sRGBColorspace);
     size_t width = image.baseColumns();
