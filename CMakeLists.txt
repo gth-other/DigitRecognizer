@@ -4,6 +4,7 @@ set(CMAKE_CXX_STANDARD 14)
 add_executable(DigitRecognizer ../src/main.cpp ../src/NeuralNetwork.hpp ../src/NeuralNetwork.cpp)
 add_definitions(-Werror)
 add_definitions(-O3)
+add_definitions(-flto)
 
 
 #ImageMagick
